@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fender Bass Shop</title>
+  <style>
+    /* Fender Inspired Colors & Typography */
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: #f4f4f4;
+      color: #222;
+      margin: 0;
+      padding: 0;
+    }
+
+    .main-wrap {
+      display: flex;
+      justify-content: center;
+      padding: 60px 20px;
+    }
+
+    .product {
+      background: #fff;
+      border-radius: 10px;
+      padding: 40px 30px;
+      max-width: 540px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+      text-align: center;
+      border: 3px solid #e2001a; /* Fender Blue Border */
+    }
+
+    .image-gallery img {
+      width: 300px;
+      height: auto;
+      border-radius: 10px;
+      transition: all 0.4s ease;
+      box-shadow: 0 4px 10px rgba(255, 0, 0, 0.3);
+    }
+
+    /* Color circles */
+    .color-circle {
+      display: inline-block;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      margin: 0 10px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color 0.3s;
+    }
+    .color-circle:hover,
+    .color-circle.selected {
+      border-color: #000;
+      box-shadow: 0 0 8px #000;
+    }
+
+    /* Product details */
+    .details h2 {
+      font-weight: 700;
+      font-size: 30px;
+      color: #e2001a;
+      margin: 20px 0 8px;
+    }
+
+    .details p.description {
+      font-size: 16px;
+      color: #444;
+      margin-bottom: 20px;
+    }
+
+    .details p.price {
+      font-weight: 700;
+      font-size: 24px;
+      color: #000;
+      margin-bottom: 30px;
+    }
+
+    /* Select inputs and buttons */
+    label {
+      display: block;
+      font-weight: 600;
+      color: #e2001a;
+      margin: 20px 0 8px;
+      text-align: left;
+    }
+    select {
+      width: 100%;
+      padding: 10px;
+      font-size: 15px;
+      border-radius: 6px;
+      border: 1.8px solid #e2001a;
+      color: #222;
+      box-sizing: border-box;
+      transition: box-shadow 0.3s ease;
+    }
+    select:focus {
+      outline: none;
+      box-shadow: 0 0 8px #e2001a;
+    }
+
+    .buy-section button {
+      margin-top: 25px;
+      background-color: #e2001a;
+      border: none;
+      color: white;
+      font-weight: 700;
+      font-size: 18px;
+      padding: 14px 30px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100%;
+    }
+    .buy-section button:hover {
+      background-color: #e2001a;
+    }
+
+    /* Bank details panel */
+    .bank-details {
+      display: none;
+      background: #e6f0ff;
+      border: 2px solid #e2001a;
+      border-radius: 10px;
+      padding: 25px 30px;
+      margin-top: 30px;
+      color: #e2001a;
+      text-align: left;
+    }
+    .bank-details h3 {
+      margin-top: 0;
+      font-weight: 700;
+      font-size: 22px;
+    }
+    .bank-details p {
+      margin: 12px 0;
+      font-weight: 600;
+      font-size: 16px;
+    }
+    .bank-details em {
+      font-style: normal;
+      color: #e2001a;
+      opacity: 0.8;
+      font-size: 14px;
+    }
+    .bank-details button {
+      margin-top: 20px;
+      background-color: #e2001a;
+      width: auto;
+      padding: 12px 28px;
+      font-size: 16px;
+      border-radius: 30px;
+      cursor: pointer;
+      color: white;
+      border: none;
+      transition: background-color 0.3s ease;
+    }
+    .bank-details button:hover {
+      background-color: #e2001a;
+    }
+
+    /* Total price display */
+    #totalPriceDisplay {
+      font-weight: 700;
+      font-size: 20px;
+      margin-top: 20px;
+      color: #e2001a;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <section class="main-wrap">
+    <div class="product">
+      <div class="image-gallery">
+        <img id="productImg" src="B1.webp" alt="Fender Jazz Bass" />
+      </div>
+
+      <div>
+        <div class="color-circle selected" style="background-color: #ff6600;" onclick="changeColor('B1.webp', this, 1200, 'Sunburst')" title="Sunburst"></div>
+        <div class="color-circle" style="background-color: #000000;" onclick="changeColor('B2.webp', this, 1100, 'Black')" title="Black"></div>
+        <div class="color-circle" style="background-color: rgba(0, 0, 128, 1);" onclick="changeColor('B3.webp', this, 1150, 'Blue Burst')" title="Olympic White"></div>
+      </div>
+
+      <div class="details">
+        <h2>Fender Jazz Bass</h2>
+        <p class="description">Classic Fender bass guitar with rich tone and comfortable playability. Perfect for all genres.</p>
+        <p class="price">Price: <strong id="priceTag">$1,200</strong></p>
+      </div>
+
+      <label for="shipping">Choose Shipping Method:</label>
+      <select id="shipping" name="shipping" onchange="updateShippingFee()">
+        <option value="standard" data-fee="25">Standard Shipping (3-5 days) - $25</option>
+        <option value="express" data-fee="60">Express Shipping (1-2 days) - $60</option>
+        <option value="pickup" data-fee="0">Store Pickup - Free</option>
+      </select>
+
+      <div id="totalPriceDisplay">Total Price: $1,225</div>
+
+      <div class="buy-section">
+        <label for="bankSelect">Select Your Bank:</label>
+        <select id="bankSelect">
+          <option value="" disabled selected>-- Choose a bank --</option>
+          <option value="G-Cash">G-Cash</option>
+          <option value="BDO">BDO</option>
+          <option value="Metro Bank">Metro Bank</option>
+          <option value="BPI">BPI</option>
+          <option value="PayPal">PayPal</option>
+          <option value="Maya">Maya</option>
+        </select>
+        <button onclick="buyNow()">OK</button>
+      </div>
+
+      <div class="bank-details" id="bankInfo">
+        <h3>Payment Details</h3>
+        <p><strong>Bank:</strong> <span id="selectedBank">Fender Bank</span></p>
+        <p><strong>Account Number:</strong> 9876-5432-1098</p>
+        <p><strong>Reference:</strong> JAZZBASS2025</p>
+        <p><em>Please send proof of payment to payments@fenderbass.com</em></p>
+        <button onclick="goToThankYou()">Proceed to Finish</button>
+      </div>
+    </div>
+  </section>
+
+<script>
+  let currentPrice = 1200;
+  let currentColor = 'Sunburst';
+
+  function changeColor(imgSrc, elem, price, colorName) {
+    document.getElementById('productImg').src = imgSrc;
+    document.getElementById('priceTag').textContent = "$" + price.toLocaleString();
+    currentPrice = price;
+    currentColor = colorName;
+    document.querySelectorAll('.color-circle').forEach(c => c.classList.remove('selected'));
+    elem.classList.add('selected');
+    updateShippingFee();
+  }
+
+  function updateShippingFee() {
+    const shippingSelect = document.getElementById('shipping');
+    const selectedOption = shippingSelect.options[shippingSelect.selectedIndex];
+    const shippingFee = Number(selectedOption.getAttribute('data-fee')) || 0;
+    const totalPrice = currentPrice + shippingFee;
+    document.getElementById('totalPriceDisplay').textContent = `Total Price: $${totalPrice.toLocaleString()}`;
+  }
+
+  function buyNow() {
+    const bankSelect = document.getElementById('bankSelect');
+    const bank = bankSelect.value;
+    if (!bank) {
+      alert("Please select a bank first.");
+      return;
+    }
+    document.getElementById('selectedBank').textContent = bank;
+    document.getElementById('bankInfo').style.display = 'block';
+    document.getElementById('bankInfo').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function goToThankYou() {
+    alert('Thank you for your order! Redirecting...');
+    window.location.href = 'thankyou.html';
+  }
+
+  window.onload = () => {
+    updateShippingFee();
+  };
+</script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #2b2b2b, #1a1a1a);
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+.main-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 50px 20px;
+}
+
+.product {
+  background: #fff;
+  color: #000;
+  border-radius: 16px;
+  padding: 30px;
+  max-width: 500px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.image-gallery img {
+  width: 250px;
+  height: auto;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.color-options {
+  margin: 20px 0;
+}
+
+.color-circle {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin: 0 8px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border 0.3s;
+}
+
+.color-circle:hover,
+.color-circle.selected {
+  border: 2px solid #000;
+}
+
+.details h2 {
+  font-size: 26px;
+  margin-top: 10px;
+}
+
+.details p {
+  font-size: 16px;
+  color: #444;
+}
+
+.buy-section {
+  margin-top: 20px;
+}
+
+.buy-section button {
+  background-color: #ffce00;
+  color: black;
+  padding: 12px 25px;
+  font-size: 16px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.buy-section button:hover {
+  background-color: #e6b800;
+}
+
+.bank-details {
+  margin-top: 20px;
+  display: none;
+  background: #f8f8f8;
+  padding: 20px;
+  border-radius: 10px;
+  color: #333;
+  text-align: left;
+}
+
+.bank-details h3 {
+  margin-top: 0;
+}
+
+.bank-details p {
+  margin: 8px 0;
+}

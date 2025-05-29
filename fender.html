@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fender Guitar Order</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #000;
+      color: #fff;
+      padding: 1rem 2rem;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .flex {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .guitar-img {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .guitar-img img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .details {
+      flex: 1;
+    }
+
+    .shape-options, .color-options {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .shape-button {
+      padding: 0.5rem 1rem;
+      background: #eee;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .shape-button.selected {
+      background: #e2001a;
+      color: white;
+      font-weight: bold;
+      border-color: #e2001a;
+    }
+
+    .color-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+    }
+
+    .color-circle.selected {
+      border: 3px solid #e2001a;
+    }
+
+    .price {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .btn {
+      background: #e2001a;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Fender Guitar Order</h1>
+  </header>
+
+  <div class="container">
+    <div class="flex">
+      <!-- Guitar Image -->
+      <div class="guitar-img">
+        <img id="guitarImage" src="https://raw.githubusercontent.com/ryanncodes/assets/main/guitars/tele-black.jpg" alt="Guitar">
+      </div>
+
+      <!-- Options -->
+      <div class="details">
+        <h2>Choose Guitar Shape:</h2>
+        <div class="shape-options">
+          <div class="shape-button selected" onclick="selectShape('telecaster', event)">Telecaster</div>
+          <div class="shape-button" onclick="selectShape('stratocaster', event)">Stratocaster</div>
+        </div>
+
+        <h2>Choose a Color:</h2>
+        <div class="color-options" id="colorOptions"></div>
+
+        <div class="price" id="price">$1,799</div>
+      </div>
+    </div>
+
+    <!-- Order Form -->
+    <form action="thankyou.html" method="get">
+      <input type="hidden" name="shape" id="selectedShape" value="Telecaster">
+      <input type="hidden" name="color" id="selectedColor" value="Black">
+      <input type="hidden" name="price" id="selectedPrice" value="1799">
+
+      <form action="thankyou.html" method="get" id="orderForm">
+  <input type="hidden" name="shape" id="selectedShape" value="Telecaster">
+  <input type="hidden" name="color" id="selectedColor" value="Black">
+  <input type="hidden" name="price" id="selectedPrice" value="1799">
+  <input type="hidden" name="shippingFee" id="shippingFee" value="20">
+  <input type="hidden" name="totalPrice" id="totalPrice" value="1819">
+
+  <label for="address">Shipping Address</label>
+  <textarea name="address" id="address" required></textarea>
+
+  <label for="bank">Select Bank</label>
+  <select name="bank" id="bank" required>
+    <option value="BPI">BPI</option>
+    <option value="BDO">BDO</option>
+    <option value="Metrobank">Metrobank</option>
+    <option value="Landbank">Landbank</option>
+  </select>
+
+  <label for="deliveryDays">Delivery Time (Days)</label>
+  <select name="deliveryDays" id="deliveryDays" required onchange="updateShippingFee()">
+    <option value="" disabled selected>Select delivery time</option>
+    <option value="3">3 Days (Fast) - $50</option>
+    <option value="5">5 Days - $30</option>
+    <option value="7">7 Days (Standard) - $20</option>
+    <option value="14">14 Days (Economy) - $10</option>
+  </select>
+
+  <div class="price" id="totalPriceDisplay">Total Price: $1,819</div>
+
+  <button class="btn" type="submit">Place Order</button>
+</form>
+
+<script>
+  // Shipping fees by delivery days
+  const shippingFees = {
+    "3": 50,
+    "5": 30,
+    "7": 20,
+    "14": 10
+  };
+
+  function updateShippingFee() {
+    const deliveryDays = document.getElementById('deliveryDays').value;
+    const shippingFee = shippingFees[deliveryDays] || 0;
+
+    const guitarPrice = parseInt(document.getElementById('selectedPrice').value, 10);
+    const totalPrice = guitarPrice + shippingFee;
+
+    // Update hidden inputs
+    document.getElementById('shippingFee').value = shippingFee;
+    document.getElementById('totalPrice').value = totalPrice;
+
+    // Update visible total price display
+    document.getElementById('totalPriceDisplay').textContent = 'Total Price: $' + totalPrice.toLocaleString();
+  }
+
+  // Update total price when guitar price changes (e.g. when changing color/shape)
+  function updateGuitarDisplay() {
+    const guitar = guitars[selectedShape][selectedColor];
+    document.getElementById('guitarImage').src = guitar.img;
+    document.getElementById('price').textContent = '$' + guitar.price.toLocaleString();
+    document.getElementById('selectedPrice').value = guitar.price;
+    document.getElementById('selectedColor').value = selectedColor;
+
+    // Recalculate total price including shipping fee
+    updateShippingFee();
+  }
+</script>
+
+
+
+      <label for="bank">Select Bank</label>
+      <select name="bank" id="bank" required>
+        <option value="BPI">BPI</option>
+        <option value="BDO">BDO</option>
+        <option value="Metrobank">Metrobank</option>
+        <option value="Landbank">Landbank</option>
+      </select>
+
+      <button class="btn" type="submit">Place Order</button>
+    </form>
+  </div>
+
+  <script>
+    const guitars = {
+      telecaster: {
+        Black: { img: 'T1.webp', price: 1799 },
+        Butterscotch: { img: 'T2.webp', price: 2000 },
+        White: { img: 'T3.webp', price: 2300 }
+      },
+      stratocaster: {
+        Black: { img: 'F2.webp', price: 1800 },
+        Sunburst: { img: 'F3.webp', price: 2100 },
+        Blue: { img: 'F1.webp', price: 2200 }
+      }
+    };
+
+    let selectedShape = 'telecaster';
+    let selectedColor = 'Black';
+
+    function selectShape(shape, event) {
+      selectedShape = shape;
+      document.getElementById('selectedShape').value = capitalize(shape);
+
+      document.querySelectorAll('.shape-button').forEach(btn => btn.classList.remove('selected'));
+      event.target.classList.add('selected');
+
+      loadColorOptions();
+    }
+
+    function loadColorOptions() {
+      const colorOptionsDiv = document.getElementById('colorOptions');
+      colorOptionsDiv.innerHTML = '';
+
+      const colors = guitars[selectedShape];
+      let first = true;
+
+      for (const color in colors) {
+        const circle = document.createElement('div');
+        circle.className = 'color-circle';
+        if (first) {
+          circle.classList.add('selected');
+          selectedColor = color;
+          updateGuitarDisplay();
+          first = false;
+        }
+        circle.style.backgroundColor = getColorStyle(color);
+        circle.title = color;
+        circle.onclick = function () {
+          document.querySelectorAll('.color-circle').forEach(c => c.classList.remove('selected'));
+          circle.classList.add('selected');
+          selectedColor = color;
+          updateGuitarDisplay();
+        };
+        colorOptionsDiv.appendChild(circle);
+      }
+    }
+
+    function updateGuitarDisplay() {
+      const guitar = guitars[selectedShape][selectedColor];
+      document.getElementById('guitarImage').src = guitar.img;
+      document.getElementById('price').textContent = '$' + guitar.price.toLocaleString();
+      document.getElementById('selectedPrice').value = guitar.price;
+      document.getElementById('selectedColor').value = selectedColor;
+    }
+
+    function capitalize(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    function getColorStyle(colorName) {
+      const map = {
+        Black: 'black',
+        Butterscotch: 'burlywood',
+        White: 'lightgray',
+        Sunburst: 'sienna',
+        Blue: 'steelblue'
+      };
+      return map[colorName] || 'gray';
+    }
+
+    // Initialize
+    loadColorOptions();
+  </script>
+</body>
+</html>

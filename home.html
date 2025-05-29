@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sylvester Guitar Atelier  - Premium Instruments & Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .guitar-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('guitar.webp');
+            background-size: cover;
+            background-position: center;
+        }
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .gallery-item {
+            transition: all 0.3s ease;
+        }
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-100">
+    <!-- Navigation -->
+    <nav class="bg-black text-white sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <i class="fas fa-guitar text-2xl text-yellow-400"></i>
+                    <span class="font-bold text-xl">Sylvester Guitar Atelier </span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="hover:text-yellow-400 transition">Home</a>
+                    <a href="#about" class="hover:text-yellow-400 transition">About Us</a>
+                    <a href="#services" class="hover:text-yellow-400 transition">Services</a>
+                    <a href="#mission" class="hover:text-yellow-400 transition">Mission & Vision</a>
+                    <a href="#gallery" class="hover:text-yellow-400 transition">Gallery</a>
+                    <a href="#testimonials" class="hover:text-yellow-400 transition">Reviews</a>
+                    <a href="#contact" class="hover:text-yellow-400 transition">Contact</a>
+                    <a href="#blog" class="hover:text-yellow-400 transition">Blog</a>
+                    <a href="#faq" class="hover:text-yellow-400 transition">FAQs</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="menu-btn" class="text-white focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4">
+                <a href="#home" class="block py-2 hover:text-yellow-400 transition">Home</a>
+                <a href="#about" class="block py-2 hover:text-yellow-400 transition">About Us</a>
+                <a href="#services" class="block py-2 hover:text-yellow-400 transition">Services</a>
+                <a href="#mission" class="block py-2 hover:text-yellow-400 transition">Mission & Vision</a>
+                <a href="#gallery" class="block py-2 hover:text-yellow-400 transition">Gallery</a>
+                <a href="#testimonials" class="block py-2 hover:text-yellow-400 transition">Reviews</a>
+                <a href="#contact" class="block py-2 hover:text-yellow-400 transition">Contact</a>
+                <a href="#blog" class="block py-2 hover:text-yellow-400 transition">Blog</a>
+                <a href="#faq" class="block py-2 hover:text-yellow-400 transition">FAQs</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="guitar-bg text-white py-20 md:py-32">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">Premium Guitars & Expert Services</h1>
+            <p class="text-xl md:text-2xl mb-8">Discover your perfect instrument from our curated collection of handcrafted guitars</p>
+            <div class="flex flex-col md:flex-row justify-center gap-4">
+                <a href="#gallery" class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 px-6 rounded-full transition duration-300">Shop Now</a>
+                <a href="#services" class="bg-transparent hover:bg-white hover:text-black border-2 border-white text-white font-bold py-3 px-6 rounded-full transition duration-300">Our Services</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us -->
+    <section id="about" class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">About Sylvester Guitar Atelier</h2>
+            <div class="flex flex-col md:flex-row items-center gap-10">
+                <div class="md:w-1/2">
+                    <img src="rj.webp">
+                </div>
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl font-semibold mb-4">Our Story</h3>
+                    <p class="text-gray-700 mb-4">Founded in 2022, Sylvester Guitar Atelier  has been serving musicians with passion and dedication for over 3 years. What started as a small repair shop has grown into a premier destination for guitar enthusiasts.</p>
+                    <p class="text-gray-700 mb-4">Our team of luthiers and musicians brings decades of combined experience to help you find, maintain, and perfect your instrument.</p>
+                    <p class="text-gray-700 mb-6">We believe every guitar has a story to tell, and we're here to help you write yours.</p>
+                    <div class="flex flex-wrap gap-4">
+                        <div class="flex items-center bg-gray-100 px-4 py-2 rounded-full">
+                            <i class="fas fa-award text-yellow-500 mr-2"></i>
+                            <span>25+ Years Experience</span>
+                        </div>
+                        <div class="flex items-center bg-gray-100 px-4 py-2 rounded-full">
+                            <i class="fas fa-users text-yellow-500 mr-2"></i>
+                            <span>Expert Team</span>
+                        </div>
+                        <div class="flex items-center bg-gray-100 px-4 py-2 rounded-full">
+                            <i class="fas fa-heart text-yellow-500 mr-2"></i>
+                            <span>Passionate Service</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">Our Services</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition">
+                    <div class="text-yellow-500 text-4xl mb-4">
+                        <i class="fas fa-guitar"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Guitar Sales</h3>
+                    <p class="text-gray-700 mb-4">From beginner models to collector's items, we offer a carefully selected range of acoustic, electric, and bass guitars.</p>
+                    <ul class="text-gray-600 space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>New & used instruments</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Custom orders available</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Trade-in program</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition">
+                    <div class="text-yellow-500 text-4xl mb-4">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Repair & Maintenance</h3>
+                    <p class="text-gray-700 mb-4">Keep your instrument in perfect playing condition with our expert repair services.</p>
+                    <ul class="text-gray-600 space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Setup & adjustments</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Fretwork & refretting</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Electronics repair</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition">
+                    <div class="text-yellow-500 text-4xl mb-4">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Lessons & Workshops</h3>
+                    <p class="text-gray-700 mb-4">Learn from experienced instructors in our state-of-the-art teaching studios.</p>
+                    <ul class="text-gray-600 space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Private lessons</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Group workshops</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Masterclasses</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission & Vision -->
+    <section id="mission" class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">Our Mission & Vision</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div class="bg-gray-100 p-8 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-yellow-500 p-3 rounded-full mr-4">
+                            <i class="fas fa-bullseye text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Our Mission</h3>
+                    </div>
+                    <p class="text-gray-700 mb-4">To provide exceptional quality guitars and services that inspire musicians at every level, from beginners to professionals.</p>
+                    <p class="text-gray-700">We are committed to preserving the craft of guitar making while embracing innovation to meet the evolving needs of today's musicians.</p>
+                </div>
+                <div class="bg-gray-100 p-8 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-yellow-500 p-3 rounded-full mr-4">
+                            <i class="fas fa-eye text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Our Vision</h3>
+                    </div>
+                    <p class="text-gray-700 mb-4">To become the most trusted name in the guitar community, known for our craftsmanship, expertise, and dedication to musical excellence.</p>
+                    <p class="text-gray-700">We envision a world where every musician has access to quality instruments and the knowledge to realize their full creative potential.</p>
+                </div>
+            </div>
+            <div class="mt-12 bg-black text-white p-8 rounded-lg">
+                <h3 class="text-2xl font-semibold mb-4 text-center">Our Core Values</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="text-center">
+                        <div class="bg-yellow-500 p-4 rounded-full inline-block mb-3">
+                            <i class="fas fa-hand-holding-heart text-2xl"></i>
+                        </div>
+                        <h4 class="text-lg font-medium mb-2">Passion</h4>
+                        <p class="text-gray-300">We share your love for music and instruments</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-yellow-500 p-4 rounded-full inline-block mb-3">
+                            <i class="fas fa-gem text-2xl"></i>
+                        </div>
+                        <h4 class="text-lg font-medium mb-2">Quality</h4>
+                        <p class="text-gray-300">Only the finest materials and craftsmanship</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-yellow-500 p-4 rounded-full inline-block mb-3">
+                            <i class="fas fa-users text-2xl"></i>
+                        </div>
+                        <h4 class="text-lg font-medium mb-2">Community</h4>
+                        <p class="text-gray-300">Building connections between musicians</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery" class="py-16 bg-gray-100">
+  <div class="container mx-auto px-6">
+    <h2 class="text-3xl font-bold text-center mb-8">Our Collection</h2>
+
+    <!-- Filter Buttons -->
+    <div class="flex flex-wrap justify-center gap-4 mb-12">
+      <button data-filter="all" class="filter-btn bg-yellow-600 text-white px-4 py-2 rounded-full font-medium hover:bg-yellow-700 transition">All</button>
+      <button data-filter="Martin" class="filter-btn bg-gray-300 text-black px-4 py-2 rounded-full font-medium hover:bg-gray-400 transition">Martin</button>
+      <button data-filter="Fender" class="filter-btn bg-gray-300 text-black px-4 py-2 rounded-full font-medium hover:bg-gray-400 transition">Fender</button>
+      <button data-filter="PRS" class="filter-btn bg-gray-300 text-black px-4 py-2 rounded-full font-medium hover:bg-gray-400 transition">PRS</button>
+      <button data-filter="Gibson" class="filter-btn bg-gray-300 text-black px-4 py-2 rounded-full font-medium hover:bg-gray-400 transition">Gibson</button>
+    </div>
+
+    <!-- Guitar Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="guitarGrid">
+
+      <!-- Example Guitar Card (Add `data-brand` for filtering) -->
+      <div class="gallery-item bg-white rounded-lg overflow-hidden shadow-md" data-brand="Martin">
+        <img src="martin.jpg" alt="Martin D-28">
+        <div class="p-4">
+          <h3 class="font-semibold text-lg mb-2">Martin D-28</h3>
+          <p class="text-gray-600 mb-3">Premium acoustic guitar with rich, balanced tone</p>
+          <div class="flex justify-between items-center">
+            <span class="font-bold text-lg">$800 - $3,000</span>
+            <a href="martin.html">
+              <button class="bg-yellow-500 hover:bg-yellow-600 text-black px-4 py-2 rounded-full text-sm font-medium transition">View Details</button>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item bg-white rounded-lg overflow-hidden shadow-md" data-brand="Fender">
+        <img src="fender.jpg" alt="Fender">
+        <div class="p-4">
+          <h3 class="font-semibold text-lg mb-2">Fender</h3>
+          <p class="text-gray-600 mb-3">Legendary electric guitar with versatile sound</p>
+          <div class="flex justify-between items-center">
+            <span class="font-bold text-lg">$2,000 - $5,000</span>
+            <a href="fender.html">
+              <button class="bg-yellow-500 hover:bg-yellow-600 text-black px-4 py-2 rounded-full text-sm font-medium transition">View Details</button>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item bg-white rounded-lg overflow-hidden shadow-md" data-brand="Fender">
+        <img src="bass.jpg" alt="Fender Precision Bass">
+        <div class="p-4">
+          <h3 class="font-semibold text-lg mb-2">Fender Precision Bass</h3>
+          <p class="text-gray-600 mb-3">Classic bass guitar with deep, punchy tone</p>
+          <div class="flex justify-between items-center">
+            <span class="font-bold text-lg">$800 - $2,000</span>
+            <a href="bass.html">
+              <button class="bg-yellow-500 hover:bg-yellow-600 text-black px-4 py-2 rounded-full text-sm font-medium transition">View Details</button>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item bg-white rounded-lg overflow-hidden shadow-md" data-brand="PRS">
+        <img src="prs.jpg" alt="PRS">
+        <div class="p-4">
+          <h3 class="font-semibold text-lg mb-2">PRS</h3>
+          <p class="text-gray-600 mb-3">Beautiful classical guitar with warm tone</p>
+          <div class="flex justify-between items-center">
+            <span class="font-bold text-lg">$3,000 - $15,000</span>
+            <a href="prs.html">
+              <button class="bg-yellow-500 hover:bg-yellow-600 text-black px-4 py-2 rounded-full text-sm font-medium transition">View Details</button>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item bg-white rounded-lg overflow-hidden shadow-md" data-brand="Gibson">
+        <img src="gibs.jpg" alt="Gibson">
+        <div class="p-4">
+          <h3 class="font-semibold text-lg mb-2">Gibson</h3>
+          <p class="text-gray-600 mb-3">Iconic electric guitar brand in Rock 'N' Roll</p>
+          <div class="flex justify-between items-center">
+            <span class="font-bold text-lg">$2,500 - $10,000</span>
+            <a href="gibson.html">
+              <button class="bg-yellow-500 hover:bg-yellow-600 text-black px-4 py-2 rounded-full text-sm font-medium transition">View Details</button>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">What Our Customers Say</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card bg-gray-100 p-6 rounded-lg transition duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-yellow-500 flex items-center justify-center text-white font-bold mr-4">JS</div>
+                        <div>
+                            <h4 class="font-semibold">John Smith</h4>
+                            <div class="flex text-yellow-500">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic">"The setup on my Stratocaster was perfect! Plays better than when it was new. The team at Sylvester Guitar Atelier really knows their stuff."</p>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card bg-gray-100 p-6 rounded-lg transition duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-yellow-500 flex items-center justify-center text-white font-bold mr-4">MJ</div>
+                        <div>
+                            <h4 class="font-semibold">Maria Johnson</h4>
+                            <div class="flex text-yellow-500">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic">"I took guitar lessons here and the instructor was phenomenal. Patient, knowledgeable, and tailored the lessons to my goals. Highly recommend!"</p>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card bg-gray-100 p-6 rounded-lg transition duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-yellow-500 flex items-center justify-center text-white font-bold mr-4">DB</div>
+                        <div>
+                            <h4 class="font-semibold">David Brown</h4>
+                            <div class="flex text-yellow-500">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic">"Found my dream guitar here after searching for years. The staff helped me compare models and find exactly what I was looking for."</p>
+                </div>
+            </div>
+            
+            <div class="mt-12 bg-black text-white p-8 rounded-lg">
+                <h3 class="text-2xl font-semibold mb-6 text-center">Leave Your Review</h3>
+                <form class="max-w-lg mx-auto">
+                    <div class="mb-4">
+                        <label for="name" class="block mb-2">Your Name</label>
+                        <input type="text" id="name" class="w-full px-4 py-2 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-yellow-500">
+                    </div>
+                    <div class="mb-4">
+                        <label for="rating" class="block mb-2">Rating</label>
+                        <div class="flex space-x-2">
+                            <button type="button" class="star-rating text-2xl text-gray-400 hover:text-yellow-500" data-rating="1">★</button>
+                            <button type="button" class="star-rating text-2xl text-gray-400 hover:text-yellow-500" data-rating="2">★</button>
+                            <button type="button" class="star-rating text-2xl text-gray-400 hover:text-yellow-500" data-rating="3">★</button>
+                            <button type="button" class="star-rating text-2xl text-gray-400 hover:text-yellow-500" data-rating="4">★</button>
+                            <button type="button" class="star-rating text-2xl text-gray-400 hover:text-yellow-500" data-rating="5">★</button>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="review" class="block mb-2">Your Review</label>
+                        <textarea id="review" rows="4" class="w-full px-4 py-2 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-yellow-500"></textarea>
+                    </div>
+                    <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-6 rounded-full transition">Submit Review</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Us -->
+    <section id="contact" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">Contact Us</h2>
+            <div class="flex flex-col md:flex-row gap-10">
+                <div class="md:w-1/2">
+                    <div class="bg-white p-8 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-semibold mb-6">Get in Touch</h3>
+                        <form>
+                            <div class="mb-4">
+                                <label for="contact-name" class="block mb-2 font-medium">Name</label>
+                                <input type="text" id="contact-name" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-yellow-500">
+                            </div>
+                            <div class="mb-4">
+                                <label for="contact-email" class="block mb-2 font-medium">Email</label>
+                                <input type="email" id="contact-email" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-yellow-500">
+                            </div>
+                            <div class="mb-4">
+                                <label for="contact-subject" class="block mb-2 font-medium">Subject</label>
+                                <input type="text" id="contact-subject" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-yellow-500">
+                            </div>
+                            <div class="mb-4">
+                                <label for="contact-message" class="block mb-2 font-medium">Message</label>
+                                <textarea id="contact-message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-yellow-500"></textarea>
+                            </div>
+                            <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-6 rounded-full transition">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <div class="bg-black text-white p-8 rounded-lg h-full">
+                        <h3 class="text-xl font-semibold mb-6">Visit Our Store</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <i class="fas fa-map-marker-alt text-yellow-500 mt-1 mr-4"></i>
+                                <div>
+                                    <h4 class="font-medium">Address</h4>
+                                    <p class="text-gray-300">Pampanga, Mabalacat 2010</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-phone-alt text-yellow-500 mt-1 mr-4"></i>
+                                <div>
+                                    <h4 class="font-medium">Phone</h4>
+                                    <p class="text-gray-300">(+62)949 680 6873</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-envelope text-yellow-500 mt-1 mr-4"></i>
+                                <div>
+                                    <h4 class="font-medium">Email</h4>
+                                    <p class="text-gray-300">sylvesterguitaratelier.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-clock text-yellow-500 mt-1 mr-4"></i>
+                                <div>
+                                    <h4 class="font-medium">Hours</h4>
+                                    <p class="text-gray-300">Monday-Friday: 10am - 7pm</p>
+                                    <p class="text-gray-300">Saturday: 10am - 5pm</p>
+                                    <p class="text-gray-300">Sunday: 12pm - 5pm</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-8">
+                            <h4 class="font-medium mb-4">Follow Us</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="bg-gray-800 hover:bg-gray-700 w-10 h-10 rounded-full flex items-center justify-center transition">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="bg-gray-800 hover:bg-gray-700 w-10 h-10 rounded-full flex items-center justify-center transition">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="bg-gray-800 hover:bg-gray-700 w-10 h-10 rounded-full flex items-center justify-center transition">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="#" class="bg-gray-800 hover:bg-gray-700 w-10 h-10 rounded-full flex items-center justify-center transition">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog/News -->
+    <section id="blog" class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">Latest News & Articles</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-gray-100 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition max-w-xl mx-auto">
+    <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Guitar Maintenance" class="w-full h-48 object-cover">
+    <div class="p-6">
+        <div class="flex items-center text-sm text-gray-500 mb-2">
+            <span>June 15, 2023</span>
+            <span class="mx-2">•</span>
+            <span>5 min read</span>
+        </div>
+        <h3 class="text-xl font-semibold mb-3">Essential Guitar Maintenance Tips</h3>
+        <p class="text-gray-700 mb-4" id="short-text">
+            Learn how to properly care for your instrument to keep it sounding and playing its best for years to come.
+        </p>
+
+        <!-- This is the hidden full content -->
+        <p class="text-gray-700 mb-4 hidden" id="full-text">
+            Proper guitar maintenance includes regular cleaning, changing strings on time, and keeping your guitar in a stable environment to avoid humidity damage. Use a soft cloth to wipe down the strings and body after each session, and periodically check the tuning pegs and fretboard for any wear or needed adjustments. Keeping your guitar well-maintained will extend its life and improve your playing experience.
+        </p>
+
+        <a href="#" id="read-more-btn" class="text-yellow-600 font-medium hover:text-yellow-700 transition">Read More →</a>
+    </div>
+</div>
+
+<script>
+    const readMoreBtn = document.getElementById('read-more-btn');
+    const shortText = document.getElementById('short-text');
+    const fullText = document.getElementById('full-text');
+
+    readMoreBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        if (fullText.classList.contains('hidden')) {
+            fullText.classList.remove('hidden');
+            shortText.classList.add('hidden');
+            readMoreBtn.textContent = 'Read Less ←';
+        } else {
+            fullText.classList.add('hidden');
+            shortText.classList.remove('hidden');
+            readMoreBtn.textContent = 'Read More →';
+        }
+    });
+</script>
+
+                
+                <div class="bg-gray-100 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition max-w-xl mx-auto mt-6">
+    <img src="https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Choosing Guitar" class="w-full h-48 object-cover">
+    <div class="p-6">
+        <div class="flex items-center text-sm text-gray-500 mb-2">
+            <span>May 28, 2023</span>
+            <span class="mx-2">•</span>
+            <span>7 min read</span>
+        </div>
+        <h3 class="text-xl font-semibold mb-3">How to Choose Your First Guitar</h3>
+        <p class="text-gray-700 mb-4" id="short-text-2">
+            A comprehensive guide to selecting the perfect instrument for beginners based on style, budget, and playing goals.
+        </p>
+
+        <!-- Hidden full content -->
+        <p class="text-gray-700 mb-4 hidden" id="full-text-2">
+            When choosing your first guitar, consider the type of music you want to play, your budget, and how comfortable the instrument feels. Acoustic guitars are great for beginners who want simplicity and portability, while electric guitars offer more versatility but may require additional equipment like amplifiers. Try out different models and sizes, and don't hesitate to ask for advice at local music stores. Remember, the best guitar for you is one that inspires you to play and practice regularly.
+        </p>
+
+        <a href="#" id="read-more-btn-2" class="text-yellow-600 font-medium hover:text-yellow-700 transition">Read More →</a>
+    </div>
+</div>
+
+<script>
+    const readMoreBtn2 = document.getElementById('read-more-btn-2');
+    const shortText2 = document.getElementById('short-text-2');
+    const fullText2 = document.getElementById('full-text-2');
+
+    readMoreBtn2.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        if (fullText2.classList.contains('hidden')) {
+            fullText2.classList.remove('hidden');
+            shortText2.classList.add('hidden');
+            readMoreBtn2.textContent = 'Read Less ←';
+        } else {
+            fullText2.classList.add('hidden');
+            shortText2.classList.remove('hidden');
+            readMoreBtn2.textContent = 'Read More →';
+        }
+    });
+</script>
+
+                
+                <!-- Article 3 -->
+                <div class="bg-gray-100 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
+                    <img src="https://images.unsplash.com/photo-1519683109079-d5f539e1542f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Guitar History" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center text-sm text-gray-500 mb-2">
+                            <span>April 10, 2023</span>
+                            <span class="mx-2">•</span>
+                            <span>10 min read</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">The Evolution of the Electric Guitar</h3>
+                        <p class="text-gray-700 mb-4">Trace the fascinating history of how the electric guitar transformed music and culture over the decades.</p>
+                        <a href="https://invention.si.edu/invention-stories/electric-guitar-history-american-icon?utm_source=chatgpt.com" class="text-yellow-600 font-medium hover:text-yellow-700 transition">Read More →</a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-10">
+                <a href="#" class="inline-block bg-black hover:bg-gray-800 text-white px-6 py-3 rounded-full font-medium transition">View All Articles</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQs -->
+    <section id="faq" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <h2 class="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+            <div class="space-y-4">
+                <!-- FAQ Item 1 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <button class="accordion-btn w-full text-left px-6 py-4 font-medium flex justify-between items-center">
+                        <span>What types of payment do you accept?</span>
+                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content px-6">
+                        <div class="pb-4 text-gray-700">
+                            We accept all major credit cards (Visa, Mastercard, American Express, Discover), PayPal, Apple Pay, Google Pay, and cash for in-store purchases. We also offer financing options through third-party providers for qualifying purchases.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 2 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <button class="accordion-btn w-full text-left px-6 py-4 font-medium flex justify-between items-center">
+                        <span>Do you offer guitar setup services?</span>
+                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content px-6">
+                        <div class="pb-4 text-gray-700">
+                            Yes, we provide comprehensive guitar setup services performed by our experienced luthiers. This includes action adjustment, intonation, truss rod adjustment, nut and saddle work, and more. Basic setups start at $75, with more extensive work priced accordingly. We recommend a setup every 6-12 months or when you change string gauges.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 3 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <button class="accordion-btn w-full text-left px-6 py-4 font-medium flex justify-between items-center">
+                        <span>Can I trade in my old guitar?</span>
+                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content px-6">
+                        <div class="pb-4 text-gray-700">
+                            Absolutely! We accept trade-ins on guitars, basses, and amplifiers. The value will depend on the condition, brand, model, and market demand. For an accurate appraisal, please bring your instrument to the store or email us photos and details. Trade-in value can be applied toward any purchase in our store.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 4 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <button class="accordion-btn w-full text-left px-6 py-4 font-medium flex justify-between items-center">
+                        <span>Do you offer guitar lessons?</span>
+                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content px-6">
+                        <div class="pb-4 text-gray-700">
+                            Yes, we offer private guitar lessons for all skill levels and ages. Our instructors are experienced players who tailor lessons to your musical interests and goals. We teach acoustic, electric, and bass guitar in various styles including rock, blues, jazz, folk, and classical. Lessons are available in 30-minute or 60-minute sessions, with package discounts available.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 5 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <button class="accordion-btn w-full text-left px-6 py-4 font-medium flex justify-between items-center">
+                        <span>What's your return policy?</span>
+                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content px-6">
+                        <div class="pb-4 text-gray-700">
+                            We offer a 30-day return policy on most items with original receipt. Instruments must be returned in original condition with all accessories and packaging. A 15% restocking fee may apply for opened items. Special orders, custom builds, and used items are final sale. For online purchases, customers are responsible for return shipping costs.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 text-center">
+                <p class="text-lg mb-4">Still have questions?</p>
+                <a href="#contact" class="inline-block bg-yellow-500 hover:bg-yellow-600 text-black px-6 py-3 rounded-full font-medium transition">Contact Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Web Design Profile -->
+<section class="py-16 bg-black text-white">
+    <div class="container mx-auto px-6 max-w-4xl text-center">
+
+        <!-- Profile Image -->
+        <div class="mb-10">
+            <img 
+              src="ME.jpg" 
+              alt="Your Name" 
+              class="mx-auto w-40 h-40 rounded-full object-cover border-4 border-yellow-500 shadow-lg"
+            />
+            <h2 class="text-4xl font-bold mt-6">Ryann Chasten Saludes</h2>
+            <p class="text-yellow-500 text-xl mt-2">Web Designer & Developer</p>
+        </div>
+
+        <h2 class="text-3xl font-bold mb-8">Web Design Profile</h2>
+        <div class="bg-gray-900 p-8 rounded-lg text-left">
+            <h3 class="text-2xl font-semibold mb-6">About This Website</h3>
+            <p class="text-gray-300 mb-6">
+                This guitar shop website was designed with a focus on user experience, visual appeal, and functionality. The design incorporates modern web standards while maintaining a classic aesthetic that appeals to musicians.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-gray-800 p-4 rounded-lg">
+                    <div class="text-yellow-500 text-3xl mb-3">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h4 class="font-medium mb-2">Design</h4>
+                    <p class="text-gray-400 text-sm">Clean, responsive layout with guitar-inspired color scheme</p>
+                </div>
+                <div class="bg-gray-800 p-4 rounded-lg">
+                    <div class="text-yellow-500 text-3xl mb-3">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h4 class="font-medium mb-2">Technology</h4>
+                    <p class="text-gray-400 text-sm">Built with HTML5, CSS3, JavaScript, and TailwindCSS</p>
+                </div>
+                <div class="bg-gray-800 p-4 rounded-lg">
+                    <div class="text-yellow-500 text-3xl mb-3">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h4 class="font-medium mb-2">Responsive</h4>
+                    <p class="text-gray-400 text-sm">Fully optimized for all device sizes</p>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-6">
+                <h4 class="font-medium mb-4">Key Features Implemented:</h4>
+                <ul class="grid grid-cols-1 md:grid-cols-2 gap-2 text-gray-300 text-sm">
+                    <li class="flex items-center">
+                        <i class="fas fa-check text-yellow-500 mr-2"></i>
+                        <span>Responsive navigation with mobile menu</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check text-yellow-500 mr-2"></i>
+                        <span>Interactive image gallery</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check text-yellow-500 mr-2"></i>
+                        <span>Testimonial section with star ratings</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check text-yellow-500 mr-2"></i>
+                        <span>FAQ accordion functionality</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check text-yellow-500 mr-2"></i>
+                        <span>Contact form with validation</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check text-yellow-500 mr-2"></i>
+                        <span>Smooth scrolling navigation</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-guitar text-2xl text-yellow-500 mr-3"></i>
+                        <span class="font-bold text-xl">Sylvester Guitar Atelier </span>
+                    </div>
+                    <p class="text-gray-400">Premium guitars, expert repairs, and music education since 2023.</p>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="text-gray-400 hover:text-yellow-500 transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-yellow-500 transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-yellow-500 transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-yellow-500 transition">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-yellow-500 transition">Home</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-yellow-500 transition">About Us</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-yellow-500 transition">Services</a></li>
+                        <li><a href="#gallery" class="text-gray-400 hover:text-yellow-500 transition">Gallery</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-yellow-500 transition">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Customer Service</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#faq" class="text-gray-400 hover:text-yellow-500 transition">FAQs</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-500 transition">Shipping Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-500 transition">Return Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-500 transition">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-500 transition">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Newsletter</h4>
+                    <p class="text-gray-400 mb-4">Subscribe to get updates on new arrivals, special offers, and events.</p>
+                    <form class="flex">
+                        <input type="email" placeholder="Your email" class="px-4 py-2 w-full rounded-l focus:outline-none text-black">
+                        <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-black px-4 py-2 rounded-r transition">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-10 pt-6 text-center text-gray-500">
+                <p>&copy; 2023 Sylvester Guitar Atelier . All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    // Close mobile menu if open
+                    mobileMenu.classList.add('hidden');
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Star rating for testimonials
+        const starRatings = document.querySelectorAll('.star-rating');
+        starRatings.forEach(star => {
+            star.addEventListener('click', function() {
+                const rating = this.getAttribute('data-rating');
+                const stars = this.parentElement.querySelectorAll('.star-rating');
+                
+                stars.forEach((s, index) => {
+                    if (index < rating) {
+                        s.classList.remove('text-gray-400');
+                        s.classList.add('text-yellow-500');
+                    } else {
+                        s.classList.remove('text-yellow-500');
+                        s.classList.add('text-gray-400');
+                    }
+                });
+            });
+        });
+
+        // FAQ Accordion
+        const accordionBtns = document.querySelectorAll('.accordion-btn');
+        accordionBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.classList.toggle('active');
+                const icon = this.querySelector('i');
+                const content = this.nextElementSibling;
+                
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                    icon.style.transform = 'rotate(0deg)';
+                } else {
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                    icon.style.transform = 'rotate(180deg)';
+                }
+            });
+        });
+
+        // Gallery hover effect
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        galleryItems.forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05)';
+                this.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.1)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+                this.style.boxShadow = 'none';
+            });
+        });
+    </script>
+
+    <script src="gtar.js"></script>
+</body>
+</html>

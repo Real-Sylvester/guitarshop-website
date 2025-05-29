@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PRS Guitar Shop</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #0a0a0a;
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #222;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    header h1 {
+      color: #f0c000;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #111;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+
+    img {
+      width: 100%;
+      max-height: 400px;
+      object-fit: contain;
+      border-radius: 8px;
+      border: 3px solid #f0c000;
+      background: #000;
+    }
+
+    select, input, textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid #555;
+      border-radius: 4px;
+      background: #222;
+      color: white;
+    }
+
+    .btn {
+      background: #f0c000;
+      color: black;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .price-display {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>PRS Guitar Shop</h1>
+  </header>
+
+  <div class="container">
+    <img id="guitarImage" src="P1.webp" alt="PRS Guitar">
+
+    <label for="colorSelect">Choose Color</label>
+    <select id="colorSelect" onchange="updateGuitar()">
+      <option value="Charcoal Burst">Charcoal Burst</option>
+      <option value="Blue Matteo">Blue Matteo</option>
+      <option value="Vintage Sunburst">Vintage Sunburst</option>
+      <option value="Fire Red Burst">Fire Red Burst</option>
+    </select>
+
+    <form action="thankyou.html" method="get">
+      <input type="hidden" name="color" id="selectedColor" value="Charcoal Burst">
+      <input type="hidden" name="price" id="selectedPrice" value="1800">
+      <input type="hidden" name="shippingFee" id="shippingFee" value="0">
+      <input type="hidden" name="totalPrice" id="totalPrice" value="1800">
+
+      <label for="address">Shipping Address</label>
+      <textarea name="address" id="address" required></textarea>
+
+      <label for="bank">Select Bank</label>
+      <select name="bank" id="bank" required>
+        <option value="BDO">BDO</option>
+        <option value="BPI">BPI</option>
+        <option value="Metrobank">Metrobank</option>
+        <option value="UnionBank">UnionBank</option>
+      </select>
+
+      <label for="deliveryDays">Delivery Time (Days)</label>
+      <select name="deliveryDays" id="deliveryDays" onchange="updateShippingFee()" required>
+        <option value="3">3 Days - $10</option>
+        <option value="5">5 Days - $6</option>
+        <option value="7">7 Days - $4</option>
+        <option value="14">14 Days - $2</option>
+      </select>
+
+      <div class="price-display" id="totalPriceDisplay">Total Price: $1,800</div>
+
+      <button class="btn" type="submit">Place Order</button>
+    </form>
+  </div>
+
+  <script>
+    const guitars = {
+      "Charcoal Burst": { img: "P1.webp", price: 1800 },
+      "Blue Matteo": { img: "P2.webp", price: 1900 },
+      "Vintage Sunburst": { img: "P3.webp", price: 2000 },
+      "Fire Red Burst": { img: "P4.png", price: 2100 },
+    };
+
+    const shippingFees = {
+      3: 10,
+      5: 6,
+      7: 4,
+      14: 2
+    };
+
+    function updateGuitar() {
+      const color = document.getElementById('colorSelect').value;
+      const guitar = guitars[color];
+
+      document.getElementById('guitarImage').src = guitar.img;
+      document.getElementById('selectedColor').value = color;
+      document.getElementById('selectedPrice').value = guitar.price;
+
+      updateShippingFee();
+    }
+
+    function updateShippingFee() {
+      const deliveryDays = document.getElementById('deliveryDays').value;
+      const fee = shippingFees[deliveryDays] || 0;
+      const basePrice = parseInt(document.getElementById('selectedPrice').value);
+      const total = basePrice + fee;
+
+      document.getElementById('shippingFee').value = fee;
+      document.getElementById('totalPrice').value = total;
+      document.getElementById('totalPriceDisplay').textContent = 'Total Price: $' + total.toLocaleString();
+    }
+  </script>
+</body>
+</html>

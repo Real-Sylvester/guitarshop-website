@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gibson Les Paul</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #2b2b2b, #1a1a1a);
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+    .main-wrap {
+      display: flex;
+      justify-content: center;
+      padding: 50px 20px;
+    }
+    .product {
+      background: #fff;
+      color: #000;
+      border-radius: 16px;
+      padding: 30px;
+      max-width: 500px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+    .image-gallery img {
+      width: 250px;
+      height: auto;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+    .color-options {
+      margin: 20px 0;
+    }
+    .color-circle {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      margin: 0 8px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border 0.3s;
+    }
+    .color-circle:hover,
+    .color-circle.selected {
+      border: 2px solid #000;
+    }
+    .details h2 {
+      font-size: 26px;
+      margin-top: 10px;
+    }
+    .details p {
+      font-size: 16px;
+      color: #444;
+    }
+    form {
+      margin-top: 20px;
+      text-align: left;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    textarea, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    .price, #totalPriceDisplay {
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 15px;
+      color: #e2001a;
+    }
+    button {
+      background-color: #ffce00;
+      color: black;
+      padding: 12px 25px;
+      font-size: 16px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background-color 0.3s;
+      width: 100%;
+    }
+    button:hover {
+      background-color: #e6b800;
+    }
+  </style>
+</head>
+<body>
+  <section class="main-wrap">
+    <div class="product">
+      <div class="image-gallery">
+        <img id="productImg" src="lespaul50s.webp" alt="Gibson Les Paul" />
+      </div>
+
+      <div class="color-options">
+        <div class="color-circle selected" style="background-color: gold;" 
+             title="Gold Top" onclick="changeColor('lespaul50s.webp', 10000, this)"></div>
+        <div class="color-circle" style="background-color: darkred;" 
+             title="Cherry Sunburst" onclick="changeColor('lespaul_cherry.jpg', 2500, this)"></div>
+        <div class="color-circle" style="background-color: black;" 
+             title="Ebony Black" onclick="changeColor('lespaul_black.jpg', 2500, this)"></div>
+      </div>
+
+      <div class="details">
+        <h2>Gibson Les Paul</h2>
+        <p>Iconic electric guitar that shaped rock history. Powerful tone, timeless design.</p>
+        <p class="price" id="priceTag">$10,000</p>
+      </div>
+
+      <form action="thankyou.html" method="get" id="orderForm">
+        <input type="hidden" name="color" id="selectedColor" value="Gold Top" />
+        <input type="hidden" name="price" id="selectedPrice" value="10000" />
+        <input type="hidden" name="shippingFee" id="shippingFee" value="0" />
+        <input type="hidden" name="totalPrice" id="totalPrice" value="10000" />
+
+        <label for="address">Shipping Address</label>
+        <textarea name="address" id="address" required></textarea>
+
+        <label for="bank">Select Bank</label>
+        <select name="bank" id="bank" required>
+          <option value="" disabled selected>Select your bank</option>
+          <option value="BPI">BPI</option>
+          <option value="BDO">BDO</option>
+          <option value="Metrobank">Metrobank</option>
+          <option value="Landbank">Landbank</option>
+        </select>
+
+        <label for="deliveryDays">Delivery Time (Days)</label>
+        <select name="deliveryDays" id="deliveryDays" required onchange="updateShippingFee()">
+          <option value="" disabled selected>Select delivery time</option>
+          <option value="3">3 Days (Fast) - $50</option>
+          <option value="5">5 Days - $30</option>
+          <option value="7">7 Days (Standard) - $20</option>
+          <option value="14">14 Days (Economy) - $10</option>
+        </select>
+
+        <div class="price" id="totalPriceDisplay">Total Price: $10,000</div>
+
+        <button type="submit">Place Order</button>
+      </form>
+    </div>
+  </section>
+
+  <script>
+    // Shipping fees by delivery days
+    const shippingFees = {
+      "3": 50,
+      "5": 30,
+      "7": 20,
+      "14": 10
+    };
+
+    // Keep track of selected color name and price
+    let selectedColorName = "Gold Top";
+
+    function changeColor(imgSrc, price, clickedCircle) {
+      // Change main image
+      document.getElementById('productImg').src = imgSrc;
+
+      // Update price text
+      document.getElementById('priceTag').textContent = '$' + price.toLocaleString();
+
+      // Update hidden inputs
+      document.getElementById('selectedPrice').value = price;
+      document.getElementById('selectedColor').value = clickedCircle.title;
+
+      selectedColorName = clickedCircle.title;
+
+      // Update total price display to reflect new guitar price + current shipping fee
+      updateShippingFee();
+
+      // Update selected class on color circles
+      document.querySelectorAll('.color-circle').forEach(c => c.classList.remove('selected'));
+      clickedCircle.classList.add('selected');
+    }
+
+    function updateShippingFee() {
+      const deliveryDays = document.getElementById('deliveryDays').value;
+      const shippingFee = shippingFees[deliveryDays] || 0;
+
+      const guitarPrice = parseInt(document.getElementById('selectedPrice').value, 10);
+      const totalPrice = guitarPrice + shippingFee;
+
+      // Update hidden inputs
+      document.getElementById('shippingFee').value = shippingFee;
+      document.getElementById('totalPrice').value = totalPrice;
+
+      // Update visible total price display
+      document.getElementById('totalPriceDisplay').textContent = 'Total Price: $' + totalPrice.toLocaleString();
+    }
+
+    // Initialize total price display on page load
+    window.onload = function() {
+      updateShippingFee();
+    }
+  </script>
+</body>
+</html>

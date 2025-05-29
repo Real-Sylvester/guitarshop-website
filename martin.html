@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Martin Acoustic Guitar Selector</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .guitar-slider {
+            perspective: 2000px;
+            height: 500px;
+            overflow: hidden;
+            touch-action: pan-y;
+        }
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .guitar-card {
+            position: absolute;
+            width: 280px;
+            height: 380px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+            background: linear-gradient(145deg, #fff, #fff);
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+            border: 2px solid #8B5A2B;
+            cursor: grab;
+            user-select: none;
+        }
+        .guitar-card:active {
+            cursor: grabbing;
+        }
+        .guitar-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transform: scale(0.9);
+            transition: transform 0.8s;
+        }
+        .guitar-card h3 {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: white;
+            font-size: 1.5rem;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s;
+        }
+        .guitar-card.active {
+            transform: translate(-50%, -50%) rotateY(0deg) scale(1.1);
+            z-index: 10;
+        }
+        .guitar-card.active img {
+            transform: scale(1);
+        }
+        .guitar-card.active h3 {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .guitar-card.prev {
+            transform: translate(-120%, -50%) rotateY(45deg) scale(0.8);
+            z-index: 1;
+            opacity: 0.7;
+        }
+        .guitar-card.next {
+            transform: translate(20%, -50%) rotateY(-45deg) scale(0.8);
+            z-index: 1;
+            opacity: 0.7;
+        }
+        .guitar-card.far-prev {
+            transform: translate(-180%, -50%) rotateY(60deg) scale(0.6);
+            z-index: 0;
+            opacity: 0.4;
+        }
+        .guitar-card.far-next {
+            transform: translate(80%, -50%) rotateY(-60deg) scale(0.6);
+            z-index: 0;
+            opacity: 0.4;
+        }
+        .selection-pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(139, 90, 43, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(139, 90, 43, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(139, 90, 43, 0); }
+        }
+        .guitar-details {
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 0.8s;
+        }
+        .guitar-details.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .drag-hint {
+            position: absolute;
+            bottom: -30px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: #8B5A2B;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            animation: fadeInOut 3s infinite;
+        }
+        @keyframes fadeInOut {
+            0% { opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { opacity: 0.3; }
+        }
+        .price-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #8B5A2B;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+    <div class="container mx-auto px-4 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4" style="color: #8B5A2B;">MARTIN GUITAR SELECTOR</h1>
+            <p class="text-xl text-gray-300">Explore our premium acoustic guitar collection</p>
+        </div>
+
+        <div class="guitar-slider mb-16 relative">
+            <div class="slider-container" id="slider">
+                <!-- D-28 -->
+                <div class="guitar-card active" data-shape="d28">
+                    <img src="G1.jpg" alt="Martin D-28">
+                    <div class="price-tag">$3,299</div>
+                    <h3>D-28</h3>
+                </div>
+                
+                <!-- OM-28 -->
+                <div class="guitar-card" data-shape="om28">
+                    <img src="G2.webp" alt="Martin OM-28">
+                    <div class="price-tag">$3,299</div>
+                    <h3>OM-28</h3>
+                </div>
+                
+                <!-- 000-15M -->
+                <div class="guitar-card" data-shape="00015m">
+                    <img src="G3.jpg" alt="Martin 000-15M">
+                    <div class="price-tag">$1,699</div>
+                    <h3>000-15M</h3>
+                </div>
+                
+                <!-- D-45 -->
+                <div class="guitar-card" data-shape="d45">
+                    <img src="G4.webp" alt="Martin D-45">
+                    <div class="price-tag">$6,999</div>
+                    <h3>D-45</h3>
+                </div>
+                
+                <!-- HD-35 -->
+                <div class="guitar-card" data-shape="hd35">
+                    <img src="G5.webp" alt="Martin HD-35">
+                    <div class="price-tag">$3,699</div>
+                    <h3>HD-35</h3>
+                </div>
+                
+                <!-- D-18 -->
+                <div class="guitar-card" data-shape="d18">
+                    <img src="G6.jpg" alt="Martin D-18">
+                    <div class="price-tag">$2,799</div>
+                    <h3>D-18</h3>
+                </div>
+            </div>
+            
+            <div class="drag-hint">
+                <i class="fas fa-arrows-left-right mr-2"></i> Drag left or right to browse models
+            </div>
+
+            <div class="flex justify-center mt-16 space-x-4">
+                <button id="prev-btn" class="bg-amber-800 hover:bg-amber-900 text-white w-12 h-12 rounded-full flex items-center justify-center transition transform hover:scale-110">
+                    <i class="fas fa-chevron-left text-xl"></i>
+                </button>
+                <button id="select-btn" class="selection-pulse bg-amber-800 hover:bg-amber-900 text-white px-6 py-3 rounded-full font-bold transition transform hover:scale-105">
+                    SELECT THIS MODEL
+                </button>
+                <button id="next-btn" class="bg-amber-800 hover:bg-amber-900 text-white w-12 h-12 rounded-full flex items-center justify-center transition transform hover:scale-110">
+                    <i class="fas fa-chevron-right text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="guitar-details max-w-4xl mx-auto bg-gray-800 p-8 rounded-xl border" style="border-color: #8B5A2B;">
+            <h2 class="text-3xl font-bold mb-6" style="color: #8B5A2B;" id="selected-shape">D-28</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">DESCRIPTION</h3>
+                    <p class="text-gray-300" id="description-text">
+                        The Martin D-28 is the standard by which all other dreadnoughts are judged. With its solid Sitka spruce top and East Indian rosewood back and sides, the D-28 delivers the powerful, balanced tone that has made it the choice of countless professional musicians.
+                    </p>
+                    <div class="mt-6">
+                        <h3 class="text-xl font-semibold mb-4">NOTABLE PLAYERS</h3>
+                        <ul class="space-y-2 text-gray-300" id="players-text">
+                            <li><i class="fas fa-guitar mr-2" style="color: #8B5A2B;"></i> Hank Williams</li>
+                            <li><i class="fas fa-guitar mr-2" style="color: #8B5A2B;"></i> Neil Young</li>
+                            <li><i class="fas fa-guitar mr-2" style="color: #8B5A2B;"></i> Johnny Cash</li>
+                            <li><i class="fas fa-guitar mr-2" style="color: #8B5A2B;"></i> Elvis Presley</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">TECH SPECS</h3>
+                    <div class="grid grid-cols-2 gap-4" id="specs-text">
+                        <div class="bg-gray-700 p-4 rounded-lg">
+                            <h4 class="font-medium" style="color: #8B5A2B;">TOP</h4>
+                            <p>Solid Sitka Spruce</p>
+                        </div>
+                        <div class="bg-gray-700 p-4 rounded-lg">
+                            <h4 class="font-medium" style="color: #8B5A2B;">BACK & SIDES</h4>
+                            <p>East Indian Rosewood</p>
+                        </div>
+                        <div class="bg-gray-700 p-4 rounded-lg">
+                            <h4 class="font-medium" style="color: #8B5A2B;">NECK</h4>
+                            <p>Select Hardwood</p>
+                        </div>
+                        <div class="bg-gray-700 p-4 rounded-lg">
+                            <h4 class="font-medium" style="color: #8B5A2B;">FRETBOARD</h4>
+                            <p>Ebony</p>
+                        </div>
+                    </div>
+                    <div class="mt-6 space-y-4">
+<div class="mt-6 space-y-4">
+  <!-- Processing Notice -->
+  <div class="bg-amber-100 border border-amber-800 text-amber-900 p-4 rounded-lg">
+      <p class="font-bold">Processing your item...</p>
+      <p class="text-sm">Please review shipping and payment options below.</p>
+  </div>
+
+  <!-- Shipping Address -->
+  <div>
+    <label for="address" class="block mb-2 font-bold text-white">Shipping Address:</label>
+    <textarea id="address" name="address" rows="3" required
+      class="w-full bg-white text-black py-2 px-4 rounded-lg border border-amber-800"
+      placeholder="Enter your full shipping address"></textarea>
+  </div>
+
+  <!-- Shipping Method -->
+  <div>
+    <label for="shipping" class="block mb-2 font-bold text-white">Choose Shipping Method:</label>
+    <select id="shipping" name="shipping" class="w-full bg-white text-black py-2 px-4 rounded-lg border border-amber-800" required>
+      <option value="standard" data-fee="20">Standard Shipping (3-5 days) - $20</option>
+      <option value="express" data-fee="50">Express Shipping (1-2 days) - $50</option>
+      <option value="pickup" data-fee="0">Store Pickup - Free</option>
+    </select>
+  </div>
+
+  <!-- Bank Selection -->
+  <div>
+    <label for="bank" class="block mb-2 font-bold text-white">Select Bank for Payment:</label>
+    <select id="bank" name="bank" class="w-full bg-white text-black py-2 px-4 rounded-lg border border-amber-800" required>
+      <option value="bdo">BDO</option>
+      <option value="bpi">BPI</option>
+      <option value="metrobank">Metrobank</option>
+      <option value="gcash">GCash</option>
+      <option value="maya">Maya</option>
+      <option value="paypal">PayPal</option>
+    </select>
+  </div>
+
+  <!-- Price Summary -->
+  <div class="bg-gray-700 p-4 rounded-lg text-white">
+    <p>Price: <span id="item-price">$3,299</span></p>
+    <p>Shipping Fee: <span id="shipping-fee">$20</span></p>
+    <p class="font-bold text-lg">Total: <span id="total-price">$3319</span></p>
+  </div>
+
+  <!-- Confirm Button -->
+  <form action="thankyou.html" method="GET" onsubmit="return validateForm()">
+    <button 
+      type="submit"
+      class="w-full bg-amber-800 hover:bg-amber-900 text-white py-3 px-6 rounded-lg font-bold transition transform hover:scale-105"
+    >
+      <i class="fas fa-check-circle mr-2"></i> CONFIRM & PROCEED
+    </button>
+  </form>
+</div>
+
+<script>
+  // Base price for D-28
+  const basePrice = 3299;
+
+  // Elements
+  const shippingSelect = document.getElementById('shipping');
+  const shippingFeeEl = document.getElementById('shipping-fee');
+  const totalPriceEl = document.getElementById('total-price');
+  const itemPriceEl = document.getElementById('item-price');
+  const addressField = document.getElementById('address');
+
+  // Update price display on load
+  itemPriceEl.textContent = `$${basePrice.toLocaleString()}`;
+
+  // Function to update shipping fee and total price
+  function updatePrice() {
+    const selectedOption = shippingSelect.options[shippingSelect.selectedIndex];
+    const fee = Number(selectedOption.getAttribute('data-fee'));
+    shippingFeeEl.textContent = `$${fee.toLocaleString()}`;
+    totalPriceEl.textContent = `$${(basePrice + fee).toLocaleString()}`;
+  }
+
+  // Validate form before submission
+  function validateForm() {
+    if (!addressField.value.trim()) {
+      alert("Please enter your shipping address.");
+      addressField.focus();
+      return false;
+    }
+    return true;
+  }
+
+  // Event listener
+  shippingSelect.addEventListener('change', updatePrice);
+
+  // Initialize price on page load
+  updatePrice();
+</script>
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slider = document.getElementById('slider');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const selectBtn = document.getElementById('select-btn');
+            const guitarCards = Array.from(document.querySelectorAll('.guitar-card'));
+            const guitarDetails = document.querySelector('.guitar-details');
+            
+            let currentIndex = 0;
+            let isDragging = false;
+            let startPosX = 0;
+            let currentTranslateX = 0;
+            let prevTranslateX = 0;
+            let animationID = 0;
+            
+            const guitarData = {
+                'd28': {
+                    name: 'D-28',
+                    price: '$3,299',
+                    description: 'The Martin D-28 is the standard by which all other dreadnoughts are judged. With its solid Sitka spruce top and East Indian rosewood back and sides, the D-28 delivers the powerful, balanced tone that has made it the choice of countless professional musicians.',
+                    players: [
+                        'Hank Williams',
+                        'Neil Young',
+                        'Johnny Cash',
+                        'Elvis Presley'
+                    ],
+                    specs: [
+                        { name: 'TOP', value: 'Solid Sitka Spruce' },
+                        { name: 'BACK & SIDES', value: 'East Indian Rosewood' },
+                        { name: 'NECK', value: 'Select Hardwood' },
+                        { name: 'FRETBOARD', value: 'Ebony' }
+                    ]
+                },
+                'om28': {
+                    name: 'OM-28',
+                    price: '$3,299',
+                    description: 'The OM-28 combines the comfortable feel of an orchestra model with the rich, complex tone of rosewood. Its slightly smaller body offers exceptional comfort while still delivering impressive volume and projection.',
+                    players: [
+                        'Eric Clapton',
+                        'John Mayer',
+                        'Tony Rice',
+                        'Norman Blake'
+                    ],
+                    specs: [
+                        { name: 'TOP', value: 'Solid Sitka Spruce' },
+                        { name: 'BACK & SIDES', value: 'East Indian Rosewood' },
+                        { name: 'NECK', value: 'Select Hardwood' },
+                        { name: 'FRETBOARD', value: 'Ebony' }
+                    ]
+                },
+                '00015m': {
+                    name: '000-15M',
+                    price: '$1,699',
+                    description: 'The 000-15M is an all-mahogany guitar that delivers warm, woody tones in a comfortable 000-size body. Its simple, elegant design and affordable price make it a favorite among players who appreciate vintage tone and playability.',
+                    players: [
+                        'Ed Sheeran',
+                        'Kurt Cobain',
+                        'Paul McCartney',
+                        'Jack Johnson'
+                    ],
+                    specs: [
+                        { name: 'TOP', value: 'Solid Mahogany' },
+                        { name: 'BACK & SIDES', value: 'Solid Mahogany' },
+                        { name: 'NECK', value: 'Select Hardwood' },
+                        { name: 'FRETBOARD', value: 'Ebony' }
+                    ]
+                },
+                'd45': {
+                    name: 'D-45',
+                    price: '$6,999',
+                    description: 'The D-45 is Martin\'s most ornate and prestigious model, featuring exquisite abalone pearl inlays and premium tonewoods. It represents the pinnacle of the luthier\'s art, delivering unmatched tone and beauty.',
+                    players: [
+                        'Elvis Presley',
+                        'Johnny Cash',
+                        'Gene Autry',
+                        'Chris Stapleton'
+                    ],
+                    specs: [
+                        { name: 'TOP', value: 'Solid Sitka Spruce' },
+                        { name: 'BACK & SIDES', value: 'East Indian Rosewood' },
+                        { name: 'NECK', value: 'Select Hardwood' },
+                        { name: 'FRETBOARD', value: 'Ebony' }
+                    ]
+                },
+                'hd35': {
+                    name: 'HD-35',
+                    price: '$3,699',
+                    description: 'The HD-35 features a herringbone-patterned top trim and scalloped bracing that enhances the bass response and overall volume. Its three-piece back construction adds to the visual appeal while maintaining excellent tonal properties.',
+                    players: [
+                        'Willie Nelson',
+                        'Kris Kristofferson',
+                        'Glen Campbell',
+                        'Merle Haggard'
+                    ],
+                    specs: [
+                        { name: 'TOP', value: 'Solid Sitka Spruce' },
+                        { name: 'BACK & SIDES', value: 'East Indian Rosewood' },
+                        { name: 'NECK', value: 'Select Hardwood' },
+                        { name: 'FRETBOARD', value: 'Ebony' }
+                    ]
+                },
+                'd18': {
+                    name: 'D-18',
+                    price: '$2,799',
+                    description: 'The D-18 is Martin\'s classic mahogany dreadnought, offering a bright, articulate tone with excellent projection. Its simpler appointments make it more affordable while still delivering the legendary Martin sound.',
+                    players: [
+                        'Bob Dylan',
+                        'Woody Guthrie',
+                        'Pete Seeger',
+                        'Doc Watson'
+                    ],
+                    specs: [
+                        { name: 'TOP', value: 'Solid Sitka Spruce' },
+                        { name: 'BACK & SIDES', value: 'Solid Mahogany' },
+                        { name: 'NECK', value: 'Select Hardwood' },
+                        { name: 'FRETBOARD', value: 'Ebony' }
+                    ]
+                }
+            };
+
+            // Initialize slider
+            updateSlider();
+
+            // Touch and mouse event handlers
+            slider.addEventListener('mousedown', touchStart);
+            slider.addEventListener('touchstart', touchStart, { passive: true });
+            slider.addEventListener('mouseup', touchEnd);
+            slider.addEventListener('touchend', touchEnd);
+            slider.addEventListener('mouseleave', touchEnd);
+            slider.addEventListener('mousemove', touchMove);
+            slider.addEventListener('touchmove', touchMove, { passive: false });
+
+            // Next button click
+            nextBtn.addEventListener('click', function() {
+                currentIndex = (currentIndex + 1) % guitarCards.length;
+                updateSlider();
+                updateGuitarDetails();
+            });
+
+            // Previous button click
+            prevBtn.addEventListener('click', function() {
+                currentIndex = (currentIndex - 1 + guitarCards.length) % guitarCards.length;
+                updateSlider();
+                updateGuitarDetails();
+            });
+
+            // Select button click
+            selectBtn.addEventListener('click', function() {
+                const activeCard = document.querySelector('.guitar-card.active');
+                const shape = activeCard.dataset.shape;
+                
+                // Add selection animation
+                activeCard.style.animation = 'none';
+                void activeCard.offsetWidth; // Trigger reflow
+                activeCard.style.animation = 'pulse 1s';
+                
+                // Show confirmation
+                alert(`You've selected the Martin ${guitarData[shape].name}!`);
+            });
+
+            // Touch start handler
+            function touchStart(e) {
+                if (e.type === 'mousedown') {
+                    isDragging = true;
+                    startPosX = e.clientX;
+                } else {
+                    isDragging = true;
+                    startPosX = e.touches[0].clientX;
+                }
+                cancelAnimationFrame(animationID);
+            }
+
+            // Touch move handler
+            function touchMove(e) {
+                if (!isDragging) return;
+                
+                let currentPosX;
+                if (e.type === 'mousemove') {
+                    currentPosX = e.clientX;
+                } else {
+                    currentPosX = e.touches[0].clientX;
+                    e.preventDefault();
+                }
+                
+                const diffX = currentPosX - startPosX;
+                
+                // Calculate swipe direction threshold
+                if (Math.abs(diffX) > 50) {
+                    if (diffX > 0) {
+                        // Swipe right - go to previous
+                        currentIndex = (currentIndex - 1 + guitarCards.length) % guitarCards.length;
+                    } else {
+                        // Swipe left - go to next
+                        currentIndex = (currentIndex + 1) % guitarCards.length;
+                    }
+                    updateSlider();
+                    updateGuitarDetails();
+                    isDragging = false;
+                }
+            }
+
+            // Touch end handler
+            function touchEnd() {
+                isDragging = false;
+            }
+
+            // Update slider positions
+            function updateSlider() {
+                guitarCards.forEach((card, index) => {
+                    card.classList.remove('active', 'prev', 'next', 'far-prev', 'far-next');
+                    
+                    const diff = (index - currentIndex + guitarCards.length) % guitarCards.length;
+                    
+                    if (diff === 0) {
+                        card.classList.add('active');
+                    } else if (diff === 1) {
+                        card.classList.add('next');
+                    } else if (diff === 2) {
+                        card.classList.add('far-next');
+                    } else if (diff === guitarCards.length - 1) {
+                        card.classList.add('prev');
+                    } else if (diff === guitarCards.length - 2) {
+                        card.classList.add('far-prev');
+                    }
+                });
+            }
+
+            // Update guitar details
+            function updateGuitarDetails() {
+                const activeCard = document.querySelector('.guitar-card.active');
+                const shape = activeCard.dataset.shape;
+                const data = guitarData[shape];
+                
+                // Hide details temporarily
+                guitarDetails.classList.remove('active');
+                
+                // Update after transition
+                setTimeout(() => {
+                    document.getElementById('selected-shape').textContent = data.name;
+                    document.getElementById('description-text').textContent = data.description;
+                    
+                    const playersList = document.getElementById('players-text');
+                    playersList.innerHTML = data.players.map(player => 
+                        `<li><i class="fas fa-guitar mr-2" style="color: #8B5A2B;"></i> ${player}</li>`
+                    ).join('');
+                    
+                    const specsContainer = document.getElementById('specs-text');
+                    specsContainer.innerHTML = data.specs.map(spec => 
+                        `<div class="bg-gray-700 p-4 rounded-lg">
+                            <h4 class="font-medium" style="color: #8B5A2B;">${spec.name}</h4>
+                            <p>${spec.value}</p>
+                        </div>`
+                    ).join('');
+                    
+                    // Show details again
+                    guitarDetails.classList.add('active');
+                }, 300);
+            }
+
+            // Keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowRight') {
+                    nextBtn.click();
+                } else if (e.key === 'ArrowLeft') {
+                    prevBtn.click();
+                } else if (e.key === 'Enter') {
+                    selectBtn.click();
+                }
+            });
+
+            // Initialize details for first guitar
+            updateGuitarDetails();
+        });
+    </script>
+</body>
+</html>

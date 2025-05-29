@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epiphone Guitar Shape Selector</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .guitar-slider {
+            perspective: 2000px;
+            height: 500px;
+            overflow: hidden;
+            touch-action: pan-y;
+        }
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .guitar-card {
+            position: absolute;
+            width: 280px;
+            height: 380px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+            border: 2px solid #d4af37;
+            cursor: grab;
+            user-select: none;
+        }
+        .guitar-card:active {
+            cursor: grabbing;
+        }
+        .guitar-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transform: scale(0.9);
+            transition: transform 0.8s;
+        }
+        .guitar-card h3 {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: white;
+            font-size: 1.5rem;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s;
+        }
+        .guitar-card.active {
+            transform: translate(-50%, -50%) rotateY(0deg) scale(1.1);
+            z-index: 10;
+        }
+        .guitar-card.active img {
+            transform: scale(1);
+        }
+        .guitar-card.active h3 {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .guitar-card.prev {
+            transform: translate(-120%, -50%) rotateY(45deg) scale(0.8);
+            z-index: 1;
+            opacity: 0.7;
+        }
+        .guitar-card.next {
+            transform: translate(20%, -50%) rotateY(-45deg) scale(0.8);
+            z-index: 1;
+            opacity: 0.7;
+        }
+        .guitar-card.far-prev {
+            transform: translate(-180%, -50%) rotateY(60deg) scale(0.6);
+            z-index: 0;
+            opacity: 0.4;
+        }
+        .guitar-card.far-next {
+            transform: translate(80%, -50%) rotateY(-60deg) scale(0.6);
+            z-index: 0;
+            opacity: 0.4;
+        }
+        .selection-pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(212, 175, 55, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+        }
+        .guitar-details {
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 0.8s;
+        }
+        .guitar-details.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .drag-hint {
+            position: absolute;
+            bottom: -30px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: #d4af37;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            animation: fadeInOut 3s infinite;
+        }
+        @keyframes fadeInOut {
+            0% { opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { opacity: 0.3; }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+    <div class="container mx-auto px-4 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 text-yellow-400">GIBSON GUITAR SHAPE SELECTOR</h1>
+            <p class="text-xl text-gray-300">Drag to rotate through iconic Gibson guitar shapes</p>
+        </div>
+
+        <div class="guitar-slider mb-16 relative">
+            <div class="slider-container" id="slider">
+                <!-- Les Paul -->
+                <a href="lespaul.html">
+                    <div class="guitar-card active" data-shape="les-paul">
+                        <img src="ep1.png" alt="Epiphone Les Paul">
+                        <h3>LES PAUL</h3>
+                    </div>
+                </a>
+                
+                <!-- SG -->
+                <a href="sg.html">
+                    <div class="guitar-card" data-shape="sg">
+                        <img src="new.png" alt="Gibson SG">
+                        <h3>SG</h3>
+                    </div>
+                </a>
+                
+                <!-- ES-335 -->
+                <a href="es335.html">
+                    <div class="guitar-card" data-shape="es-335">
+                        <img src="es.png" alt="Gibson ES-335">
+                        <h3>ES-335</h3>
+                    </div>
+                </a>
+                
+                <!-- Flying V -->
+                <a href="v.html">
+                    <div class="guitar-card" data-shape="flying-v">
+                        <img src="v2.png" alt="Gibson Flying V">
+                        <h3>FLYING V</h3>
+                    </div>
+                </a>
+                
+                <!-- Explorer -->
+                <a href="explorer.html">
+                    <div class="guitar-card" data-shape="explorer">
+                        <img src="x.png" alt="Gibson Explorer">
+                        <h3>EXPLORER</h3>
+                    </div>
+                </a>
+                
+                <!-- Firebird -->
+                <a href="firebird.html">
+                    <div class="guitar-card" data-shape="firebird">
+                        <img src="fire.png" alt="Gibson Firebird">
+                        <h3>FIREBIRD</h3>
+                    </div>
+                </a>
+            </div>
+            
+            <div class="drag-hint">
+                <i class="fas fa-arrows-left-right mr-2"></i> Drag left or right to browse models
+            </div>
+
+            <div class="flex justify-center mt-16 space-x-4">
+                <button id="prev-btn" class="bg-yellow-500 hover:bg-yellow-600 text-black w-12 h-12 rounded-full flex items-center justify-center transition transform hover:scale-110">
+                    <i class="fas fa-chevron-left text-xl"></i>
+                </button>
+                <button id="select-btn" class="selection-pulse bg-yellow-500 hover:bg-yellow-600 text-black px-6 py-3 rounded-full font-bold transition transform hover:scale-105">
+                    SELECT THIS SHAPE
+                </button>
+                <button id="next-btn" class="bg-yellow-500 hover:bg-yellow-600 text-black w-12 h-12 rounded-full flex items-center justify-center transition transform hover:scale-110">
+                    <i class="fas fa-chevron-right text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="guitar-details max-w-4xl mx-auto bg-gray-800 p-8 rounded-xl border border-yellow-500">
+            <h2 class="text-3xl font-bold mb-6 text-yellow-400" id="selected-shape">LES PAUL</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">HISTORY</h3>
+                    <p class="text-gray-300" id="history-text">
+                        Introduced in 1952, the Les Paul is one of Gibson's most iconic models. Designed in collaboration with guitarist Les Paul, it features a solid mahogany body with a maple top, set mahogany neck, and dual humbucking pickups that deliver a thick, sustaining tone favored by rock and blues guitarists.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">NOTABLE PLAYERS</h3>
+                    <ul class="space-y-2 text-gray-300" id="players-text">
+                        <li><i class="fas fa-guitar text-yellow-500 mr-2"></i> Jimmy Page</li>
+                        <li><i class="fas fa-guitar text-yellow-500 mr-2"></i> Slash</li>
+                        <li><i class="fas fa-guitar text-yellow-500 mr-2"></i> Eric Clapton</li>
+                        <li><i class="fas fa-guitar text-yellow-500 mr-2"></i> Pete Townshend</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8">
+                <h3 class="text-xl font-semibold mb-4">TECH SPECS</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="specs-text">
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h4 class="font-medium text-yellow-400">BODY</h4>
+                        <p>Mahogany with Maple Top</p>
+                    </div>
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h4 class="font-medium text-yellow-400">NECK</h4>
+                        <p>Set Mahogany</p>
+                    </div>
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h4 class="font-medium text-yellow-400">PICKUPS</h4>
+                        <p>Dual Humbuckers</p>
+                    </div>
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h4 class="font-medium text-yellow-400">SCALE</h4>
+                        <p>24.75"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slider = document.getElementById('slider');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const selectBtn = document.getElementById('select-btn');
+            const guitarCards = Array.from(document.querySelectorAll('.guitar-card'));
+            const guitarDetails = document.querySelector('.guitar-details');
+            
+            let currentIndex = 0;
+            let isDragging = false;
+            let startPosX = 0;
+            let currentTranslateX = 0;
+            let prevTranslateX = 0;
+            let animationID = 0;
+            
+            const guitarData = {
+                'les-paul': {
+                    name: 'LES PAUL',
+                    history: 'Introduced in 1952, the Les Paul is one of Gibson\'s most iconic models. Designed in collaboration with guitarist Les Paul, it features a solid mahogany body with a maple top, set mahogany neck, and dual humbucking pickups that deliver a thick, sustaining tone favored by rock and blues guitarists.',
+                    players: [
+                        'Jimmy Page',
+                        'Slash',
+                        'Eric Clapton',
+                        'Pete Townshend'
+                    ],
+                    specs: [
+                        { name: 'BODY', value: 'Mahogany with Maple Top' },
+                        { name: 'NECK', value: 'Set Mahogany' },
+                        { name: 'PICKUPS', value: 'Dual Humbuckers' },
+                        { name: 'SCALE', value: '24.75"' }
+                    ]
+                },
+                'sg': {
+                    name: 'SG',
+                    history: 'Introduced in 1961 as the "Les Paul SG", this model was renamed simply "SG" (Solid Guitar) after Les Paul\'s endorsement ended. With its double-cutaway design and thin, lightweight mahogany body, the SG offers excellent upper-fret access and a biting tone favored by rock and metal players.',
+                    players: [
+                        'Angus Young',
+                        'Tony Iommi',
+                        'Derek Trucks',
+                        'Frank Zappa'
+                    ],
+                    specs: [
+                        { name: 'BODY', value: 'Solid Mahogany' },
+                        { name: 'NECK', value: 'Set Mahogany' },
+                        { name: 'PICKUPS', value: 'Dual Humbuckers' },
+                        { name: 'SCALE', value: '24.75"' }
+                    ]
+                },
+                'es-335': {
+                    name: 'ES-335',
+                    history: 'Introduced in 1958, the ES-335 was Gibson\'s first semi-hollowbody electric guitar. It combines the warm, resonant tone of a hollowbody with the feedback resistance of a solidbody. The center block runs through the middle of the body, with hollow "wings" on either side.',
+                    players: [
+                        'B.B. King',
+                        'Chuck Berry',
+                        'Larry Carlton',
+                        'Dave Grohl'
+                    ],
+                    specs: [
+                        { name: 'BODY', value: 'Maple/Poplar/Maple Laminate' },
+                        { name: 'NECK', value: 'Set Mahogany' },
+                        { name: 'PICKUPS', value: 'Dual Humbuckers' },
+                        { name: 'SCALE', value: '24.75"' }
+                    ]
+                },
+                'flying-v': {
+                    name: 'FLYING V',
+                    history: 'Introduced in 1958 alongside the Explorer, the Flying V was one of Gibson\'s first radical body designs. Its angular "V" shape was initially met with resistance but later became iconic in rock and metal. The design offers excellent balance and a unique aesthetic.',
+                    players: [
+                        'Albert King',
+                        'Jimmy Hendrix',
+                        'Kirk Hammett',
+                        'Randy Rhoads'
+                    ],
+                    specs: [
+                        { name: 'BODY', value: 'Korina (original) or Mahogany' },
+                        { name: 'NECK', value: 'Set Mahogany' },
+                        { name: 'PICKUPS', value: 'Dual Humbuckers' },
+                        { name: 'SCALE', value: '24.75"' }
+                    ]
+                },
+                'explorer': {
+                    name: 'EXPLORER',
+                    history: 'Introduced in 1958 as the Futura, this model was renamed Explorer in the 1970s. Its radical angular body shape was ahead of its time and initially unpopular, but became a favorite of hard rock and metal players in the 1970s and 1980s. The design offers excellent upper-fret access.',
+                    players: [
+                        'James Hetfield',
+                        'The Edge',
+                        'Eric Clapton',
+                        'Allen Collins'
+                    ],
+                    specs: [
+                        { name: 'BODY', value: 'Korina (original) or Mahogany' },
+                        { name: 'NECK', value: 'Set Mahogany' },
+                        { name: 'PICKUPS', value: 'Dual Humbuckers' },
+                        { name: 'SCALE', value: '24.75"' }
+                    ]
+                },
+                'firebird': {
+                    name: 'FIREBIRD',
+                    history: 'Introduced in 1963, the Firebird was designed by automotive designer Ray Dietrich. Its reverse body shape and neck-through construction set it apart from other Gibson models. The Firebird offers a bright, articulate tone with excellent sustain due to its neck-through design.',
+                    players: [
+                        'Johnny Winter',
+                        'Brian Jones',
+                        'Dave Grohl',
+                        'Paul Simon'
+                    ],
+                    specs: [
+                        { name: 'BODY', value: 'Mahogany with Walnut center block' },
+                        { name: 'NECK', value: 'Neck-through Mahogany' },
+                        { name: 'PICKUPS', value: 'Mini Humbuckers' },
+                        { name: 'SCALE', value: '24.75"' }
+                    ]
+                }
+            };
+
+            // Initialize slider
+            updateSlider();
+
+            // Touch and mouse event handlers
+            slider.addEventListener('mousedown', touchStart);
+            slider.addEventListener('touchstart', touchStart, { passive: true });
+            slider.addEventListener('mouseup', touchEnd);
+            slider.addEventListener('touchend', touchEnd);
+            slider.addEventListener('mouseleave', touchEnd);
+            slider.addEventListener('mousemove', touchMove);
+            slider.addEventListener('touchmove', touchMove, { passive: false });
+
+            // Next button click
+            nextBtn.addEventListener('click', function() {
+                currentIndex = (currentIndex + 1) % guitarCards.length;
+                updateSlider();
+                updateGuitarDetails();
+            });
+
+            // Previous button click
+            prevBtn.addEventListener('click', function() {
+                currentIndex = (currentIndex - 1 + guitarCards.length) % guitarCards.length;
+                updateSlider();
+                updateGuitarDetails();
+            });
+
+            // Select button click
+            selectBtn.addEventListener('click', function() {
+                const activeCard = document.querySelector('.guitar-card.active');
+                const shape = activeCard.dataset.shape;
+                
+                // Add selection animation
+                activeCard.style.animation = 'none';
+                void activeCard.offsetWidth; // Trigger reflow
+                activeCard.style.animation = 'pulse 1s';
+                
+                // Show confirmation
+                alert(`You've selected the Gibson ${guitarData[shape].name}!`);
+            });
+
+            // Touch start handler
+            function touchStart(e) {
+                if (e.type === 'mousedown') {
+                    isDragging = true;
+                    startPosX = e.clientX;
+                } else {
+                    isDragging = true;
+                    startPosX = e.touches[0].clientX;
+                }
+                cancelAnimationFrame(animationID);
+            }
+
+            // Touch move handler
+            function touchMove(e) {
+                if (!isDragging) return;
+                
+                let currentPosX;
+                if (e.type === 'mousemove') {
+                    currentPosX = e.clientX;
+                } else {
+                    currentPosX = e.touches[0].clientX;
+                    e.preventDefault();
+                }
+                
+                const diffX = currentPosX - startPosX;
+                
+                // Calculate swipe direction threshold
+                if (Math.abs(diffX) > 50) {
+                    if (diffX > 0) {
+                        // Swipe right - go to previous
+                        currentIndex = (currentIndex - 1 + guitarCards.length) % guitarCards.length;
+                    } else {
+                        // Swipe left - go to next
+                        currentIndex = (currentIndex + 1) % guitarCards.length;
+                    }
+                    updateSlider();
+                    updateGuitarDetails();
+                    isDragging = false;
+                }
+            }
+
+            // Touch end handler
+            function touchEnd() {
+                isDragging = false;
+            }
+
+            // Update slider positions
+            function updateSlider() {
+                guitarCards.forEach((card, index) => {
+                    card.classList.remove('active', 'prev', 'next', 'far-prev', 'far-next');
+                    
+                    const diff = (index - currentIndex + guitarCards.length) % guitarCards.length;
+                    
+                    if (diff === 0) {
+                        card.classList.add('active');
+                    } else if (diff === 1) {
+                        card.classList.add('next');
+                    } else if (diff === 2) {
+                        card.classList.add('far-next');
+                    } else if (diff === guitarCards.length - 1) {
+                        card.classList.add('prev');
+                    } else if (diff === guitarCards.length - 2) {
+                        card.classList.add('far-prev');
+                    }
+                });
+            }
+
+            // Update guitar details
+            function updateGuitarDetails() {
+                const activeCard = document.querySelector('.guitar-card.active');
+                const shape = activeCard.dataset.shape;
+                const data = guitarData[shape];
+                
+                // Hide details temporarily
+                guitarDetails.classList.remove('active');
+                
+                // Update after transition
+                setTimeout(() => {
+                    document.getElementById('selected-shape').textContent = data.name;
+                    document.getElementById('history-text').textContent = data.history;
+                    
+                    const playersList = document.getElementById('players-text');
+                    playersList.innerHTML = data.players.map(player => 
+                        `<li><i class="fas fa-guitar text-yellow-500 mr-2"></i> ${player}</li>`
+                    ).join('');
+                    
+                    const specsContainer = document.getElementById('specs-text');
+                    specsContainer.innerHTML = data.specs.map(spec => 
+                        `<div class="bg-gray-700 p-4 rounded-lg">
+                            <h4 class="font-medium text-yellow-400">${spec.name}</h4>
+                            <p>${spec.value}</p>
+                        </div>`
+                    ).join('');
+                    
+                    // Show details again
+                    guitarDetails.classList.add('active');
+                }, 300);
+            }
+
+            // Keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowRight') {
+                    nextBtn.click();
+                } else if (e.key === 'ArrowLeft') {
+                    prevBtn.click();
+                } else if (e.key === 'Enter') {
+                    selectBtn.click();
+                }
+            });
+
+            // Initialize details for first guitar
+            updateGuitarDetails();
+        });
+    </script>
+</body>
+</html>
